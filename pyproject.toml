@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vnm1-cli"
+version = "1.0.0"
+description = "Trainer CLI for VNM1 (Voivent Neural Material): convert PBR texture sets to .vnm neural material artifacts"
+license = {text = "Apache-2.0"}
+readme = "README.md"
+requires-python = ">=3.10"
+# The input layer depends only on numpy + Pillow and never imports torch.
+# torch is needed only by the training core, so it is kept behind the
+# "train" extra instead of the base dependencies.
+dependencies = [
+    "numpy>=1.24",
+    "Pillow>=9.5",
+]
+
+[project.optional-dependencies]
+train = ["torch"]
+
+[project.scripts]
+vnm1 = "vnm1.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
